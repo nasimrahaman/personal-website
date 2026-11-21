@@ -277,200 +277,248 @@ figure.live .readout {
   margin-top: var(--line);
 }
 
-/* Fig. 1 on the home page: a line out from Earth, to scale, as long as the
-   light that left it in 1993 has travelled. Everything from here to "End of
-   Fig. 1" belongs to that figure and to lightcone.js, and nothing else uses
-   it.
+/* Fig. 1 on the home page: my light cone. A map around the Sun with a line
+   to each bright star and, as a circle, the light that left Earth in 1993.
+   Everything from here to "End of Fig. 1" belongs to that figure and to
+   lightcone.js, and nothing else uses it.
 
-   Across, the drawing is measured in light-years, so all the script has to
-   say is how far the line runs this year (--end). Down, it is measured in
-   half lines of text: three rows of names, the line at 8, numbers under it.
-   The 8 and the 11 below are the ones in the viewBox in the markup. */
+   The drawing is a square, --s on a side, and the circle fills it: half of
+   --s is as many light-years as the light has travelled (--front), which is
+   all the script has to say. A star stands --x and --y light-years from the
+   Sun. Left of the square there is room (--L) for the names of stars that
+   lie outside the circle on that side. */
 
-.reach {
-  --unit: calc(var(--line) / 2);
-  --base: 8;
-  --tall: 11;
+.cone {
+  --s: 18rem;
+  --L: 8rem;
   --track: 0.2em; /* between the letters of a name */
-  margin-bottom: calc(var(--line) * 3);
+  margin: calc(var(--line) * 3) 0;
 }
 
-.reach .scale {
+.cone .chart {
   position: relative;
-  height: calc(var(--unit) * var(--tall));
+  height: var(--s);
 }
 
-.reach.readable .scale {
+.cone.readable .chart {
   cursor: crosshair;
   touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
 }
 
-/* Hairlines stay one pixel wide and sharp however far the drawing is
-   stretched. The half pixel keeps the first and the last inside the page. */
-.reach svg {
+.cone svg {
   position: absolute;
   top: 0;
-  left: 0.5px;
-  width: calc(100% - 1px);
+  left: var(--L);
+  width: var(--s);
   max-width: none;
-  height: 100%;
+  height: var(--s);
   overflow: visible;
   fill: none;
   stroke: var(--dim);
-  shape-rendering: crispEdges;
 }
 
-.reach svg * {
+.cone svg * {
   vector-effect: non-scaling-stroke;
 }
 
-/* One division for each year the light has travelled. */
-.reach .years {
+/* One division for each year the light has travelled, on the line towards
+   the centre of the Galaxy. */
+.cone .years {
   stroke: var(--rule);
 }
 
-/* What the light has not reached yet is dotted: the rest of the line here,
-   and the post of the star at the end of it below. The offset starts the
-   dots with a gap, so the solid line ends where the needle is. */
-.reach .beyond {
-  stroke-dasharray: 2 3;
-  stroke-dashoffset: 2;
-}
-
-.reach :is(.line, .needle) {
+.cone :is(.axis, .light) {
   stroke: currentColor;
 }
 
-/* A star: a post up from the line at its distance, its name on top of the
-   post and its distance under the line. The names step down a row at a time,
-   three to a flight (--row), so that each begins clear of the one before, and
-   a longer post reaches a higher name. A post never passes through a name:
-   whatever stands under a name is on a lower row. */
-.reach .star {
-  --r: var(--row);
+/* What the light has not reached yet is dotted. */
+.cone .ray.ahead {
+  stroke-dasharray: 2 3;
+}
+
+.cone [hidden] {
+  display: none;
+}
+
+/* The line to the centre of the Galaxy leaves the circle and runs to the
+   edge of the page, dotted: not reached, and from there on not to scale. Its
+   name and its distance stand over the far end. */
+.cone .beyond {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(var(--at) / var(--end) * (100% - 1px));
-  width: 1px;
+  top: calc(var(--s) / 2);
+  right: 0;
+  left: calc(var(--L) + var(--s) + 3px);
+  height: 1px;
+  background: repeating-linear-gradient(to right, var(--dim) 0 2px, transparent 2px 5px);
+}
+
+.cone .place {
+  position: absolute;
+  top: calc(var(--s) / 2 - var(--line));
+  right: 0;
   color: var(--dim);
+  line-height: var(--line);
   white-space: nowrap;
 }
 
-.reach .star::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--r) * var(--line));
-  bottom: calc(var(--unit) * (var(--tall) - var(--base)));
-  left: 0;
-  width: 1px;
-  background: currentColor;
+.cone .place .at {
+  margin-left: 1ch;
 }
 
-.reach .name {
+/* A star: the point where its line ends. */
+.cone .star {
   position: absolute;
-  top: calc((var(--r) - 1) * var(--line));
-  left: 0;
-  font: 400 0.625rem / var(--line) var(--label);
+  top: calc(var(--s) * (0.5 + var(--y) / (2 * var(--front))));
+  left: calc(var(--L) + var(--s) * (0.5 + var(--x) / (2 * var(--front))));
+  width: 0;
+  height: 0;
+  color: var(--dim);
+}
+
+/* Its name and its distance, set against that point by hand: --wx and --wy
+   pixels across and down on a wide page, --nx and --ny on a narrow one. The
+   offset is to the left edge of the name, or to its right edge with the
+   class wR or nR. With w-stack or n-stack the number goes under the name, and
+   with w-wrap or n-wrap the words take a line each within --ww or --nw. */
+.cone .label {
+  position: absolute;
+  font-size: 0.8125rem;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+.cone .name {
+  font: 400 0.625rem / 14px var(--label);
   letter-spacing: var(--track);
   text-transform: uppercase;
 }
 
-.reach .at {
-  position: absolute;
-  top: calc(var(--unit) * (var(--base) + 1));
-  left: 0;
-  font-size: 0.8125rem;
+.cone .at {
   font-variant-numeric: tabular-nums;
 }
 
-/* The line starts at the Sun, whose post is drawn like the line. */
-.reach .sun::before {
-  bottom: calc(var(--unit) * (var(--tall) - var(--base) - 1));
-  background: var(--ink);
-}
-
-/* The next star is the one the light has not reached. It is the right-hand
-   end of the drawing and always on the top row. */
-.reach .star.next {
-  --r: 1;
-}
-
-.reach .star.next::before {
-  background: repeating-linear-gradient(to top, currentColor 0 2px, transparent 2px 5px);
-}
-
-/* Near the right-hand end a name and its number end at their post, where
-   the others begin at theirs. The minus is the space after the last letter. */
-.reach :is(.next, .flip) .name {
-  right: calc(var(--track) * -1);
-  left: auto;
-}
-
-.reach :is(.next, .flip) .at {
-  right: 0;
-  left: auto;
-}
-
-/* Stars beyond the next one, and what the script finds no room for. */
-.reach .star[hidden],
-.reach .crowded,
-.reach .numberless .at {
+/* A star can have one place for its name while the light has yet to reach
+   it, outside the circle, and another once it has been passed. */
+.cone .star.ahead .if-passed,
+.cone .star:not(.ahead) .if-ahead {
   display: none;
 }
 
-.reach figcaption {
-  margin-top: var(--line);
-}
-
-/* No last line of one word. */
-.reach figcaption > :first-child {
-  text-wrap: balance;
-}
-
-/* Wide enough for the longest reading, so the caption beside it never reflows. */
-.reach .readout {
+/* Wide enough for the longest reading, so nothing beside it moves. */
+.cone .readout {
   min-width: 21ch;
   text-align: right;
 }
 
-@media (max-width: 52rem) {
-  /* Less line, so fewer names. The top row is left to the two ends, the
-     stars between take the other two turn about (--narrow), and what there
-     is no room for goes: Procyon, which stands under two names, and a
-     second name on one mark. */
-  .reach .star {
-    --r: var(--narrow, var(--row));
+@media (min-width: 52rem) {
+  .cone .label {
+    top: calc(var(--wy) * 1px);
+    left: calc(var(--wx) * 1px);
   }
 
-  .reach .if-room {
+  .cone .label.wR {
+    right: calc(var(--wx) * -1px);
+    left: auto;
+    text-align: right;
+  }
+
+  .cone .label.w-stack .at {
+    display: block;
+  }
+
+  .cone .label.w-wrap {
+    width: calc(var(--ww) * 1px);
+    white-space: normal;
+  }
+
+  /* The caption stands in the empty space right of the circle, level with
+     its foot. If the caption and the readout do not fit on one line there,
+     the readout takes the next one, still on the right. */
+  .cone {
+    display: grid;
+    grid-template-columns: calc(var(--L) + var(--s) + var(--line) / 2) minmax(0, 1fr);
+  }
+
+  .cone .chart {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+
+  .cone figcaption {
+    grid-area: 1 / 2;
+    flex-wrap: wrap;
+    align-self: end;
+    gap: 0 3ch;
+    margin-top: 0;
+  }
+
+  .cone figcaption > :first-child {
+    white-space: nowrap;
+  }
+
+  .cone .readout {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 51.99rem) {
+  /* The circle is as wide as the page allows once the room on its left is
+     taken off. The clamp is the page's own padding at the sides. */
+  .cone {
+    --s: min(16.25rem, calc(100vw - 2 * clamp(1.25rem, 6vw, 3rem) - var(--L)));
+    --L: 4.25rem;
+    --track: 0.1em;
+  }
+
+  /* When no star on a narrow page stands outside the circle, the room on
+     its left is given back to it. */
+  .cone:not(:has(.star.ahead:not(.wide-only):not([hidden]))) {
+    --L: 0rem;
+  }
+
+  .cone .label {
+    top: calc(var(--ny) * 1px);
+    left: calc(var(--nx) * 1px);
+  }
+
+  .cone .label.nR {
+    right: calc(var(--nx) * -1px);
+    left: auto;
+    text-align: right;
+  }
+
+  .cone .label.n-stack .at {
+    display: block;
+  }
+
+  .cone .label.n-wrap {
+    width: calc(var(--nw) * 1px);
+    white-space: normal;
+  }
+
+  /* No room outside the circle for the stars the light has yet to reach,
+     apart from the nearest. */
+  .cone .wide-only {
     display: none;
+  }
+
+  .cone figcaption {
+    margin-top: var(--line);
   }
 }
 
 @media (max-width: 44rem) {
-  /* A number that would run into the next star's. */
-  .reach .flip .at {
+  /* No room beside the circle for a name at the end of the line to the
+     centre: the line is the scale of years and nothing more. */
+  .cone .beyond,
+  .cone .place {
     display: none;
   }
 
-  .reach .readout {
+  .cone .readout {
     min-width: 0;
     text-align: left;
-  }
-}
-
-@media (max-width: 22rem) {
-  /* Two names on one row would read as one. */
-  .reach {
-    --track: 0.1em;
-  }
-
-  /* A name set to end at its mark would begin at someone else's. */
-  .reach .flip {
-    display: none;
   }
 }
 
