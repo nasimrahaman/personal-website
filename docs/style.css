@@ -421,20 +421,6 @@ figure.live .readout {
   display: none;
 }
 
-/* While the journey replays, what has not been reached yet is covered. */
-.reach .curtain {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: -1px;
-  bottom: 0;
-  background: var(--ground);
-}
-
-.reach.replaying .curtain {
-  display: block;
-}
-
 .reach figcaption {
   margin-top: var(--line);
 }

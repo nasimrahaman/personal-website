@@ -17,7 +17,8 @@
  *
  * The page already contains the figure as it stood in the year in its
  * readout, put there by tools/lightcone.py. This script brings it up to this
- * year, replays the journey once on load, and lets a pointer read the line.
+ * year and lets a pointer read the line. Nothing moves until the reader
+ * moves it.
  */
 (() => {
   "use strict";
@@ -77,8 +78,6 @@
   // end at its mark, where the others begin at theirs.
   const FLIP = 0.22;
 
-  const REPLAY = 3000; // ms, for the whole journey
-
   const pick = (selector) => svg.querySelector(selector);
   const parts = {
     years: pick(".years"),
@@ -89,9 +88,8 @@
   };
   const sun = scale.querySelector(".sun");
   const marks = [...scale.querySelectorAll(".star:not(.sun)")];
-  const curtain = scale.querySelector(".curtain");
   const stars = STARS.filter((star) => !star.on).map((star) => ({ ...star, ly: LY_MAS / star.plx }));
-  if (Object.values(parts).includes(null) || !curtain || marks.length !== stars.length) return;
+  if (Object.values(parts).includes(null) || marks.length !== stars.length) return;
 
   // Down the page the drawing is the markup's business. All this needs to
   // know is where the line is.
@@ -131,7 +129,7 @@
     parts.tens.setAttribute("d", tens);
     parts.beyond.setAttribute("x1", front);
     parts.beyond.setAttribute("x2", x);
-    extend(front);
+    parts.line.setAttribute("x2", front);
 
     marks.forEach((mark, i) => {
       const passed = next < 0 || i < next;
@@ -195,12 +193,8 @@
     }
   }
 
-  // Two things move: the end of the solid line, once, and the needle that
-  // reads it. The needle rests on the front of the light.
-  function extend(ly) {
-    parts.line.setAttribute("x2", ly.toFixed(3));
-    point(ly);
-  }
+  // One thing moves: the needle that reads the line. It rests on the front
+  // of the light.
   function point(ly) {
     parts.needle.setAttribute("x1", ly.toFixed(3));
     parts.needle.setAttribute("x2", ly.toFixed(3));
@@ -208,33 +202,6 @@
   function rest() {
     point(front);
     say(front);
-  }
-
-  // On load, once: the journey from 1993 to this year, at an even pace.
-  // Everything the light has not yet reached stays covered.
-  const still = matchMedia("(prefers-reduced-motion: reduce)");
-  let frame = 0;
-  function replay() {
-    let start;
-    figure.classList.add("replaying");
-    const step = (clock) => {
-      if (start === undefined) start = clock;
-      const progress = Math.min((clock - start) / REPLAY, 1);
-      const ly = front * progress;
-      const box = scale.getBoundingClientRect();
-      curtain.style.left = `${1.5 + (ly / end) * (box.width - 1)}px`;
-      extend(ly);
-      say(Math.floor(ly));
-      if (progress < 1) frame = requestAnimationFrame(step);
-      else arrive();
-    };
-    frame = requestAnimationFrame(step);
-  }
-  function arrive() {
-    cancelAnimationFrame(frame);
-    figure.classList.remove("replaying");
-    extend(front);
-    rest();
   }
 
   // A pointer on the line reads it, a whole year at a time: the year in which
@@ -245,7 +212,6 @@
     const x = Math.min(Math.max(event.clientX - box.left - 0.5, 0), reach);
     const ly = Math.min(Math.round((x / reach) * end), Math.floor(end));
 
-    if (figure.classList.contains("replaying")) arrive();
     figure.classList.add("live");
     point(ly);
     say(ly);
@@ -274,6 +240,4 @@
   scale.addEventListener("pointercancel", release);
   addEventListener("resize", declutter);
   if (document.fonts) document.fonts.ready.then(declutter);
-
-  if (!still.matches) replay();
 })();
