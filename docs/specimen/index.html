@@ -6,14 +6,14 @@
     <title>Specimen — Nasim Rahaman</title>
     <meta name="description" content="Every element a piece of writing on this site can use." />
     <meta name="robots" content="noindex" />
-    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Nasim Rahaman" />
     <link rel="preload" href="/fonts/plex-serif-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/michroma-400.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/theme.js"></script>
     <link rel="stylesheet" href="/style.css" />
     <!-- Only on pages with mathematics. -->
     <link rel="stylesheet" href="/vendor/katex/katex.min.css" />
@@ -27,6 +27,7 @@
         <a class="mark" href="/" aria-label="Nasim Rahaman, home"></a>
         <nav>
           <a href="/writing/">Writing</a>
+          <button class="theme" type="button" aria-label="Light mode" aria-pressed="false" title="Light" hidden></button>
         </nav>
       </header>
 

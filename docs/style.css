@@ -59,16 +59,15 @@
   color-scheme: dark;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --ground: #fff;
-    --ink: #000;
-    --dim: #6e6e6e;
-    --rule: #ccc;
-    --attention: #e63c00;
-    --dot: #4f86cf;
-    color-scheme: light;
-  }
+/* Light, when the reader has turned the switch at the top (theme.js). */
+:root[data-theme="light"] {
+  --ground: #fff;
+  --ink: #000;
+  --dim: #6e6e6e;
+  --rule: #ccc;
+  --attention: #e63c00;
+  --dot: #4f86cf;
+  color-scheme: light;
 }
 
 *,
@@ -190,6 +189,42 @@ h2,
 }
 
 .top nav a:hover {
+  color: var(--attention);
+}
+
+/* The light switch: a circle, half filled, and the one icon on the site. It
+   is as tall as a line so that it is easy to hit, and the circle is drawn in
+   the middle of it. Turned, the circle is the other way round. */
+
+.theme {
+  appearance: none;
+  flex: none;
+  width: var(--line);
+  height: var(--line);
+  margin: 0 calc((0.625rem - var(--line)) / 2);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--dim);
+  cursor: pointer;
+}
+
+.theme::before {
+  content: "";
+  display: block;
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: auto;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: linear-gradient(to right, transparent 50%, currentColor 50%);
+}
+
+:root[data-theme="light"] .theme::before {
+  transform: rotate(180deg);
+}
+
+.theme:hover {
   color: var(--attention);
 }
 
@@ -951,6 +986,10 @@ sup,
 }
 
 @media print {
+  .theme {
+    display: none;
+  }
+
   :root {
     --ground: #fff;
     --ink: #000;
