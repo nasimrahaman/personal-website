@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Specimen — Nasim Rahaman</title>
+    <meta name="description" content="Every element a piece of writing on this site can use." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Nasim Rahaman" />
+    <link rel="preload" href="/fonts/plex-serif-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/michroma-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/style.css" />
+    <!-- Only on pages with mathematics. -->
+    <link rel="stylesheet" href="/vendor/katex/katex.min.css" />
+    <script defer src="/vendor/katex/katex.min.js"></script>
+    <script defer src="/vendor/katex/auto-render.min.js"></script>
+    <script defer src="/math.js"></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="top">
+        <a class="mark" href="/" aria-label="Nasim Rahaman, home"></a>
+        <nav>
+          <a href="/writing/">Writing</a>
+        </nav>
+      </header>
+
+      <article class="post">
+        <header>
+          <p class="meta"><time datetime="2026-11-21">2026-11-21</time><span>Specimen</span></p>
+          <h1>Every element a piece of writing can use</h1>
+          <p class="lede">
+            A reference for whoever lays out the next post. The rules are in STYLE.md. This page
+            shows them at work.
+          </p>
+        </header>
+
+        <div class="prose">
+          <p>
+            Prose is set in IBM Plex Serif, about seventy characters to the line.
+            <em>Emphasis is italic</em>, <strong>strong emphasis is semibold</strong>, and
+            <a href="/">a link</a> is underlined in grey until it is pointed at. The names of
+            things in code, such as <code>lightcone.js</code>, are set in the mono face. A note is
+            marked like this.<sup><a href="#fn-1" id="fnref-1">1</a></sup>
+          </p>
+
+          <h2>Side heads</h2>
+          <p>
+            A second-level heading sits in the margin, beside the paragraph it introduces, in the
+            same face and size as every other label on the site. On a narrow screen it moves above
+            the paragraph. Keep side heads to a few words.
+          </p>
+
+          <h3>A third level, used sparingly</h3>
+          <p>
+            It stays in the text column. A piece that seems to need a fourth level needs
+            restructuring instead.
+          </p>
+
+          <h2>Quotation</h2>
+          <blockquote>
+            <p>Look again at that dot. That’s here. That’s home. That’s us.</p>
+            <footer>Carl Sagan, <cite>Pale Blue Dot</cite>, 1994</footer>
+          </blockquote>
+
+          <h2>Lists</h2>
+          <ul>
+            <li>Unordered items are marked with a dash.</li>
+            <li>They keep the measure of the text around them.</li>
+          </ul>
+          <ol>
+            <li>Ordered items are numbered in the mono face.</li>
+            <li>Use them only when the order means something.</li>
+          </ol>
+
+          <h2>Mathematics</h2>
+          <p>
+            Mathematics is written as TeX and set by KaTeX. Inline, neutral hydrogen radiates at
+            \(\nu \approx 1420.4\ \mathrm{MHz}\), a wavelength of
+            \(\lambda = c / \nu \approx 21.1\ \mathrm{cm}\). On a line of its own, an
+            equation is set flush left:
+          </p>
+          <p>\[ N = R_{*} \, f_p \, n_e \, f_l \, f_i \, f_c \, L \]</p>
+
+          <h2>Code</h2>
+          <pre><code>def fold(signal, width):
+    """Cut a line of bits into rows of the same length."""
+    return [signal[i : i + width] for i in range(0, len(signal), width)]</code></pre>
+
+          <h2>Tables</h2>
+          <table>
+            <thead>
+              <tr><th>Message</th><th class="num">Year</th><th class="num">Bits</th><th>Folds as</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Arecibo</td><td class="num">1974</td><td class="num">1679</td><td>23 × 73</td></tr>
+              <tr><td>The name at the top of this page</td><td class="num">2026</td><td class="num">511</td><td>73 × 7</td></tr>
+            </tbody>
+          </table>
+
+          <h2>Figures</h2>
+          <p>
+            A figure is as wide as the text column unless it is marked wide, in which case it
+            spans the margin too. Its caption starts with its number and is a full sentence.
+          </p>
+          <figure class="wide" id="fig-1">
+            <svg viewBox="0 0 73 7" role="img" aria-label="The name at the top of this page, leaning to the left.">
+              <path fill="currentColor" d="M2.07 .07h.86v.86h-.86zM3.07 .07h.86v.86h-.86zM7.07 .07h.86v.86h-.86zM10.07 .07h.86v.86h-.86zM11.07 .07h.86v.86h-.86zM12.07 .07h.86v.86h-.86zM16.07 .07h.86v.86h-.86zM17.07 .07h.86v.86h-.86zM18.07 .07h.86v.86h-.86zM19.07 .07h.86v.86h-.86zM21.07 .07h.86v.86h-.86zM22.07 .07h.86v.86h-.86zM23.07 .07h.86v.86h-.86zM25.07 .07h.86v.86h-.86zM29.07 .07h.86v.86h-.86zM35.07 .07h.86v.86h-.86zM36.07 .07h.86v.86h-.86zM37.07 .07h.86v.86h-.86zM38.07 .07h.86v.86h-.86zM42.07 .07h.86v.86h-.86zM43.07 .07h.86v.86h-.86zM44.07 .07h.86v.86h-.86zM47.07 .07h.86v.86h-.86zM51.07 .07h.86v.86h-.86zM54.07 .07h.86v.86h-.86zM55.07 .07h.86v.86h-.86zM56.07 .07h.86v.86h-.86zM59.07 .07h.86v.86h-.86zM63.07 .07h.86v.86h-.86zM66.07 .07h.86v.86h-.86zM67.07 .07h.86v.86h-.86zM68.07 .07h.86v.86h-.86zM71.07 .07h.86v.86h-.86zM1.07 1.07h.86v.86h-.86zM2.07 1.07h.86v.86h-.86zM6.07 1.07h.86v.86h-.86zM8.07 1.07h.86v.86h-.86zM12.07 1.07h.86v.86h-.86zM14.07 1.07h.86v.86h-.86zM21.07 1.07h.86v.86h-.86zM24.07 1.07h.86v.86h-.86zM25.07 1.07h.86v.86h-.86zM27.07 1.07h.86v.86h-.86zM28.07 1.07h.86v.86h-.86zM34.07 1.07h.86v.86h-.86zM38.07 1.07h.86v.86h-.86zM40.07 1.07h.86v.86h-.86zM44.07 1.07h.86v.86h-.86zM46.07 1.07h.86v.86h-.86zM50.07 1.07h.86v.86h-.86zM52.07 1.07h.86v.86h-.86zM56.07 1.07h.86v.86h-.86zM58.07 1.07h.86v.86h-.86zM59.07 1.07h.86v.86h-.86zM61.07 1.07h.86v.86h-.86zM62.07 1.07h.86v.86h-.86zM64.07 1.07h.86v.86h-.86zM68.07 1.07h.86v.86h-.86zM70.07 1.07h.86v.86h-.86zM.07 2.07h.86v.86h-.86zM1.07 2.07h.86v.86h-.86zM2.07 2.07h.86v.86h-.86zM5.07 2.07h.86v.86h-.86zM7.07 2.07h.86v.86h-.86zM11.07 2.07h.86v.86h-.86zM13.07 2.07h.86v.86h-.86zM20.07 2.07h.86v.86h-.86zM23.07 2.07h.86v.86h-.86zM25.07 2.07h.86v.86h-.86zM27.07 2.07h.86v.86h-.86zM33.07 2.07h.86v.86h-.86zM37.07 2.07h.86v.86h-.86zM39.07 2.07h.86v.86h-.86zM43.07 2.07h.86v.86h-.86zM45.07 2.07h.86v.86h-.86zM49.07 2.07h.86v.86h-.86zM51.07 2.07h.86v.86h-.86zM55.07 2.07h.86v.86h-.86zM57.07 2.07h.86v.86h-.86zM59.07 2.07h.86v.86h-.86zM61.07 2.07h.86v.86h-.86zM63.07 2.07h.86v.86h-.86zM67.07 2.07h.86v.86h-.86zM69.07 2.07h.86v.86h-.86zM70.07 2.07h.86v.86h-.86zM.07 3.07h.86v.86h-.86zM2.07 3.07h.86v.86h-.86zM4.07 3.07h.86v.86h-.86zM6.07 3.07h.86v.86h-.86zM10.07 3.07h.86v.86h-.86zM13.07 3.07h.86v.86h-.86zM14.07 3.07h.86v.86h-.86zM15.07 3.07h.86v.86h-.86zM19.07 3.07h.86v.86h-.86zM22.07 3.07h.86v.86h-.86zM24.07 3.07h.86v.86h-.86zM26.07 3.07h.86v.86h-.86zM32.07 3.07h.86v.86h-.86zM33.07 3.07h.86v.86h-.86zM34.07 3.07h.86v.86h-.86zM35.07 3.07h.86v.86h-.86zM38.07 3.07h.86v.86h-.86zM42.07 3.07h.86v.86h-.86zM44.07 3.07h.86v.86h-.86zM45.07 3.07h.86v.86h-.86zM46.07 3.07h.86v.86h-.86zM47.07 3.07h.86v.86h-.86zM48.07 3.07h.86v.86h-.86zM50.07 3.07h.86v.86h-.86zM54.07 3.07h.86v.86h-.86zM56.07 3.07h.86v.86h-.86zM58.07 3.07h.86v.86h-.86zM60.07 3.07h.86v.86h-.86zM62.07 3.07h.86v.86h-.86zM66.07 3.07h.86v.86h-.86zM68.07 3.07h.86v.86h-.86zM70.07 3.07h.86v.86h-.86zM72.07 3.07h.86v.86h-.86zM2.07 4.07h.86v.86h-.86zM3.07 4.07h.86v.86h-.86zM5.07 4.07h.86v.86h-.86zM6.07 4.07h.86v.86h-.86zM7.07 4.07h.86v.86h-.86zM8.07 4.07h.86v.86h-.86zM9.07 4.07h.86v.86h-.86zM15.07 4.07h.86v.86h-.86zM18.07 4.07h.86v.86h-.86zM21.07 4.07h.86v.86h-.86zM25.07 4.07h.86v.86h-.86zM31.07 4.07h.86v.86h-.86zM33.07 4.07h.86v.86h-.86zM37.07 4.07h.86v.86h-.86zM38.07 4.07h.86v.86h-.86zM39.07 4.07h.86v.86h-.86zM40.07 4.07h.86v.86h-.86zM41.07 4.07h.86v.86h-.86zM43.07 4.07h.86v.86h-.86zM47.07 4.07h.86v.86h-.86zM49.07 4.07h.86v.86h-.86zM50.07 4.07h.86v.86h-.86zM51.07 4.07h.86v.86h-.86zM52.07 4.07h.86v.86h-.86zM53.07 4.07h.86v.86h-.86zM55.07 4.07h.86v.86h-.86zM59.07 4.07h.86v.86h-.86zM61.07 4.07h.86v.86h-.86zM62.07 4.07h.86v.86h-.86zM63.07 4.07h.86v.86h-.86zM64.07 4.07h.86v.86h-.86zM65.07 4.07h.86v.86h-.86zM67.07 4.07h.86v.86h-.86zM70.07 4.07h.86v.86h-.86zM71.07 4.07h.86v.86h-.86zM72.07 4.07h.86v.86h-.86zM2.07 5.07h.86v.86h-.86zM4.07 5.07h.86v.86h-.86zM8.07 5.07h.86v.86h-.86zM14.07 5.07h.86v.86h-.86zM17.07 5.07h.86v.86h-.86zM20.07 5.07h.86v.86h-.86zM24.07 5.07h.86v.86h-.86zM30.07 5.07h.86v.86h-.86zM33.07 5.07h.86v.86h-.86zM36.07 5.07h.86v.86h-.86zM40.07 5.07h.86v.86h-.86zM42.07 5.07h.86v.86h-.86zM46.07 5.07h.86v.86h-.86zM48.07 5.07h.86v.86h-.86zM52.07 5.07h.86v.86h-.86zM54.07 5.07h.86v.86h-.86zM58.07 5.07h.86v.86h-.86zM60.07 5.07h.86v.86h-.86zM64.07 5.07h.86v.86h-.86zM66.07 5.07h.86v.86h-.86zM70.07 5.07h.86v.86h-.86zM71.07 5.07h.86v.86h-.86zM1.07 6.07h.86v.86h-.86zM3.07 6.07h.86v.86h-.86zM7.07 6.07h.86v.86h-.86zM9.07 6.07h.86v.86h-.86zM10.07 6.07h.86v.86h-.86zM11.07 6.07h.86v.86h-.86zM12.07 6.07h.86v.86h-.86zM15.07 6.07h.86v.86h-.86zM16.07 6.07h.86v.86h-.86zM17.07 6.07h.86v.86h-.86zM19.07 6.07h.86v.86h-.86zM23.07 6.07h.86v.86h-.86zM29.07 6.07h.86v.86h-.86zM33.07 6.07h.86v.86h-.86zM35.07 6.07h.86v.86h-.86zM39.07 6.07h.86v.86h-.86zM41.07 6.07h.86v.86h-.86zM45.07 6.07h.86v.86h-.86zM47.07 6.07h.86v.86h-.86zM51.07 6.07h.86v.86h-.86zM53.07 6.07h.86v.86h-.86zM57.07 6.07h.86v.86h-.86zM59.07 6.07h.86v.86h-.86zM63.07 6.07h.86v.86h-.86zM65.07 6.07h.86v.86h-.86zM69.07 6.07h.86v.86h-.86zM70.07 6.07h.86v.86h-.86z" />
+            </svg>
+            <figcaption>
+              <span>Fig. 1 — The 511 bits of the name at the top of this page, cut into lines one bit too long.</span>
+              <span class="readout">74.00 bits / line</span>
+            </figcaption>
+          </figure>
+
+          <h2>Figures that respond</h2>
+          <p>
+            A figure may respond to the pointer. It has to make sense before anyone touches it and
+            with scripts turned off, and the orange is spent only while it is being handled.
+          </p>
+          <figure id="fig-2">
+            <svg viewBox="0 0 600 120" role="img" aria-label="A string vibrating in its third mode." style="touch-action: pan-y">
+              <polyline fill="none" stroke="currentColor" vector-effect="non-scaling-stroke" points="0 60.0 4 57.2 8 54.5 12 51.8 16 49.1 20 46.4 24 43.8 28 41.3 32 38.8 36 36.4 40 34.1 44 32.0 48 29.9 52 27.9 56 26.1 60 24.4 64 22.8 68 21.4 72 20.2 76 19.1 80 18.2 84 17.4 88 16.8 92 16.3 96 16.1 100 16.0 104 16.1 108 16.3 112 16.8 116 17.4 120 18.2 124 19.1 128 20.2 132 21.4 136 22.8 140 24.4 144 26.1 148 27.9 152 29.9 156 32.0 160 34.1 164 36.4 168 38.8 172 41.3 176 43.8 180 46.4 184 49.1 188 51.8 192 54.5 196 57.2 200 60.0 204 62.8 208 65.5 212 68.2 216 70.9 220 73.6 224 76.2 228 78.7 232 81.2 236 83.6 240 85.9 244 88.0 248 90.1 252 92.1 256 93.9 260 95.6 264 97.2 268 98.6 272 99.8 276 100.9 280 101.8 284 102.6 288 103.2 292 103.7 296 103.9 300 104.0 304 103.9 308 103.7 312 103.2 316 102.6 320 101.8 324 100.9 328 99.8 332 98.6 336 97.2 340 95.6 344 93.9 348 92.1 352 90.1 356 88.0 360 85.9 364 83.6 368 81.2 372 78.7 376 76.2 380 73.6 384 70.9 388 68.2 392 65.5 396 62.8 400 60.0 404 57.2 408 54.5 412 51.8 416 49.1 420 46.4 424 43.8 428 41.3 432 38.8 436 36.4 440 34.1 444 32.0 448 29.9 452 27.9 456 26.1 460 24.4 464 22.8 468 21.4 472 20.2 476 19.1 480 18.2 484 17.4 488 16.8 492 16.3 496 16.1 500 16.0 504 16.1 508 16.3 512 16.8 516 17.4 520 18.2 524 19.1 528 20.2 532 21.4 536 22.8 540 24.4 544 26.1 548 27.9 552 29.9 556 32.0 560 34.1 564 36.4 568 38.8 572 41.3 576 43.8 580 46.4 584 49.1 588 51.8 592 54.5 596 57.2 600 60.0" />
+            </svg>
+            <figcaption>
+              <span>Fig. 2 — A string held at both ends. Move along it to change the mode.</span>
+              <span class="readout">n = 3</span>
+            </figcaption>
+          </figure>
+          <script src="mode.js"></script>
+
+          <hr />
+
+          <p>A short rule marks a break that is not worth a heading.</p>
+
+          <ol class="footnotes">
+            <li id="fn-1">
+              Notes are collected at the end, in the mono face.
+              <a href="#fnref-1" aria-label="Back to the text">↩&#xFE0E;</a>
+            </li>
+          </ol>
+        </div>
+      </article>
+
+      <footer>
+        <a class="dot" href="https://www.youtube.com/watch?v=wupToqz1e2g"><span>Pale Blue Dot</span></a>
+      </footer>
+    </main>
+  </body>
+</html>

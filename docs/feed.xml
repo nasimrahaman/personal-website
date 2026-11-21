@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Nasim Rahaman</title>
+  <id>https://nasimrahaman.com/</id>
+  <link href="https://nasimrahaman.com/" />
+  <link rel="self" href="https://nasimrahaman.com/feed.xml" />
+  <updated>2025-11-01T00:00:00Z</updated>
+  <author><name>Nasim Rahaman</name></author>
+  <entry>
+    <title>Prologue</title>
+    <id>https://nasimrahaman.com/writing/prologue/</id>
+    <link href="https://nasimrahaman.com/writing/prologue/" />
+    <published>2025-11-01T00:00:00Z</published>
+    <updated>2025-11-01T00:00:00Z</updated>
+    <summary>The prologue of my PhD thesis.</summary>
+  </entry>
+</feed>
