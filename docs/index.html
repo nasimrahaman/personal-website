@@ -10,6 +10,7 @@
     />
     <link rel="canonical" href="https://nasimrahaman.com/" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nasim Rahaman" />
     <meta property="og:url" content="https://nasimrahaman.com/" />
     <meta property="og:title" content="Nasim Rahaman" />
     <meta
@@ -28,6 +29,50 @@
     <link rel="preload" href="/fonts/michroma-400.woff2" as="font" type="font/woff2" crossorigin />
     <script src="/theme.js"></script>
     <link rel="stylesheet" href="/style.css" />
+    <!-- What the page says, in the form search engines read: whose site this is, and the
+         profiles listed under Elsewhere. It says nothing the page does not. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://nasimrahaman.com/#site",
+            "url": "https://nasimrahaman.com/",
+            "name": "Nasim Rahaman",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://nasimrahaman.com/#page",
+            "url": "https://nasimrahaman.com/",
+            "name": "Nasim Rahaman",
+            "isPartOf": { "@id": "https://nasimrahaman.com/#site" },
+            "mainEntity": { "@id": "https://nasimrahaman.com/#me" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://nasimrahaman.com/#me",
+            "name": "Nasim Rahaman",
+            "url": "https://nasimrahaman.com/",
+            "description": "AI researcher, founder of Tiptree Systems, trained as a physicist.",
+            "jobTitle": "Founder",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Tiptree Systems",
+              "url": "https://tiptreesystems.com"
+            },
+            "sameAs": [
+              "https://lacuna.tiptreesystems.com/author/nasim-rahaman",
+              "https://scholar.google.com/citations?user=iH9DuY0AAAAJ",
+              "https://github.com/nasimrahaman",
+              "https://www.linkedin.com/in/nasim-rahaman/",
+              "https://x.com/nasim_rahaman"
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <main class="page">

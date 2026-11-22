@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the lists of posts and the feed from the posts themselves.
+"""Rebuild the lists of posts, the feed and the sitemap from the pages themselves.
 
     python3 tools/reindex.py
 
@@ -10,12 +10,15 @@ to be edited by hand. A post marked <meta name="robots" content="noindex"> is a
 draft and is left out. The date is YYYY-MM-DD, or YYYY-MM when only the month
 is known.
 
-The script rewrites three things: the rows between the "posts" comments in
+The script rewrites five things: the rows between the "posts" comments in
 docs/index.html (the newest few) and in docs/writing/index.html (all of them),
-and docs/feed.xml.
+docs/feed.xml, the data between the "data" comments in the <head> of each post
+(its title, date and author in the form search engines read), and
+docs/sitemap.xml, which lists every page in docs/ that is not marked noindex.
 """
 import datetime
 import html
+import json
 import pathlib
 import re
 import sys
@@ -29,6 +32,7 @@ ON_HOME = 5
 
 DATE = re.compile(r"\d{4}-\d{2}(-\d{2})?")
 LISTS = re.compile(r"^(?P<indent>[ \t]*)(?P<open><!-- posts\b.*?-->)\n.*?^[ \t]*<!-- /posts -->\n", re.S | re.M)
+DATA = re.compile(r"^(?P<indent>[ \t]*)(?P<open><!-- data\b.*?-->)\n.*?^[ \t]*<!-- /data -->\n", re.S | re.M)
 
 
 class Head(HTMLParser):
@@ -66,6 +70,7 @@ def read(folder):
     except ValueError:
         sys.exit(f"{folder.name}: the date {date!r} is not YYYY-MM-DD or YYYY-MM")
     return {
+        "path": folder / "index.html",
         "url": f"/writing/{folder.name}/",
         "title": meta["og:title"],
         "summary": meta["description"],
@@ -128,6 +133,52 @@ def feed(posts):
     (DOCS / "feed.xml").write_text("\n".join(lines), encoding="utf-8")
 
 
+def describe(post):
+    """Write into a post's <head> what it is, when it is from and who wrote it."""
+    path = post["path"]
+    text = path.read_text(encoding="utf-8")
+    if not DATA.search(text):
+        sys.exit(f"{path.relative_to(ROOT)}: no <!-- data --> … <!-- /data --> in its <head> to fill")
+    facts = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post["title"],
+        "description": post["summary"],
+        "datePublished": post["date"],
+        "url": SITE + post["url"],
+        "mainEntityOfPage": SITE + post["url"],
+        "inLanguage": "en",
+        "author": {"@type": "Person", "@id": f"{SITE}/#me", "name": AUTHOR, "url": f"{SITE}/"},
+    }
+    # "<" is written as an escape so that nothing in a title can end the script.
+    written = json.dumps(facts, indent=2, ensure_ascii=False).replace("<", "\\u003c")
+
+    def fill(match):
+        indent = match["indent"]
+        lines = ['<script type="application/ld+json">', *(f"  {line}" for line in written.split("\n")), "</script>"]
+        body = "".join(f"{indent}{line}\n" for line in lines)
+        return f"{indent}{match['open']}\n{body}{indent}<!-- /data -->\n"
+
+    path.write_text(DATA.sub(fill, text), encoding="utf-8")
+
+
+def sitemap():
+    """List every page of the site that search engines may show."""
+    urls = []
+    for path in sorted(DOCS.rglob("index.html")):
+        head = Head()
+        head.feed(path.read_text(encoding="utf-8"))
+        if "noindex" in head.meta.get("robots", ""):
+            continue
+        folder = path.parent.relative_to(DOCS).as_posix()
+        urls.append(f"{SITE}/" if folder == "." else f"{SITE}/{folder}/")
+    lines = ['<?xml version="1.0" encoding="utf-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    lines += [f"  <url><loc>{html.escape(url)}</loc></url>" for url in sorted(urls)]
+    lines += ["</urlset>", ""]
+    (DOCS / "sitemap.xml").write_text("\n".join(lines), encoding="utf-8")
+    return len(urls)
+
+
 if __name__ == "__main__":
     folders = sorted(path.parent for path in (DOCS / "writing").glob("*/index.html"))
     posts = [post for post in map(read, folders) if post]
@@ -136,4 +187,8 @@ if __name__ == "__main__":
     relist(DOCS / "index.html", posts[:ON_HOME])
     relist(DOCS / "writing" / "index.html", posts)
     feed(posts)
+    for post in posts:
+        describe(post)
+    pages = sitemap()
     print(f"{len(posts)} post{'' if len(posts) == 1 else 's'} listed; newest: {posts[0]['title'] if posts else 'none'}")
+    print(f"{pages} page{'' if pages == 1 else 's'} in the sitemap")
